@@ -20,6 +20,7 @@ Zombie::Zombie(Zombie& a)
     immunization = a.immunization;
     mutation = a.mutation;
 }
+Zombie::~Zombie(){}
 double getImmunization()
 {
     return immunization;

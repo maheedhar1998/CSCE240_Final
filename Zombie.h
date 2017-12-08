@@ -7,6 +7,7 @@ class Zombie: public Human
         Zombie();
         Zombie(double,double) : Human(Human&);
         Zombie(Zombie&);
+        ~Zombie();
         double getImmunization();
         double getMutation();
         void setImmunization(double);
