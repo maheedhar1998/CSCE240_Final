@@ -1,6 +1,8 @@
 #include <cstdlib>
-using namespace std;
+#include "Human.h"
 
+
+using namespace std;
 
 Human::Human()
 {
