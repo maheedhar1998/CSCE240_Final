@@ -1,10 +1,8 @@
-#include "Human.cpp"
+#include <iostream>
+#include <cstdlib>
 using namespace std;
-class Zombie
+class Zombie: public Human
 {
     public:
-        Zombie();
-
     private:
-
-}
+};
