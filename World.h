@@ -1,5 +1,5 @@
 #include "Zombie.cpp"
-#include "Human.cpp"
+//#include "Human.cpp"
 
 using namespace std;
 
