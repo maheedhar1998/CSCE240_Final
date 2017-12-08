@@ -4,6 +4,7 @@ using namespace std;
 class Human
 {
     public:
+        Human();
 
     private:
 
