@@ -1,30 +1,30 @@
 #include <cstdlib>
 #include <iostream>
 #include "Human.h"
-
-
 using namespace std;
-
 Human::Human()
 {
  	x = 0;
  	y = 0;
 	health = 100;
-	Weapon = "none";
-
+    type = 'H';
+	Weapon weapon("none",0);
 }
 Human::Human(int xVal, int yVal)
 {
 	setX(xVal);
 	setY(yVal);
+    type = 'H';
 	setHealth((rand()%100)+1);
-  setWeapon();
+    setWeapon();
 }
 Human::Human(Human& human)
 {
-	x = human.x;
-  y = human.y;
-  health = human.health;
+    x = human.x;
+    y = human.y;
+    type = 'H';
+    health = human.health;
+    weapon =  human.weapon;
 }
 Human::~Human()
 {
@@ -44,6 +44,10 @@ int Human::getHealth()
 Weapon Human::getWeapon()
 {
 	return weapon;
+}
+char getType()
+{
+    return type;
 }
 void Human::setX(int _x)
 {
@@ -80,19 +84,15 @@ void Human::setHealth(int a)
 }
 void Human::increaseHealth(int b)
 {
-
 	health = health+b;
-
 	if(health > 100)
 	{
 		health = 100;
 	}
-
 }
 void Human::decreaseHealth(int c)
 {
 	health = health-c;
-
 	if(health <= 0)
 	{
 		health = 0;
@@ -101,16 +101,16 @@ void Human::decreaseHealth(int c)
 void Human::setWeapon()
 {
   String a = weaponArr[rand()%14];
-  weapon = new Weapon(a);
+  Weapon weapon(a);
 }
-void Human::setWeapon(string x, int y)
+void Human::setWeapon(string a, int b)
 {
-    weapon = new Weapon(x,y);
+    weapon = new Weapon(a,b);
 }
 void Human::move()
 {
   char b = moveArr[rand()%4];
-  if(b = 'U')
+  if(b == 'U')
   {
     y = y-1;
     if(y <= 0)
@@ -118,7 +118,7 @@ void Human::move()
       y = 1;
     }
   }
-  if(b = 'D')
+  if(b == 'D')
   {
     y = y+1;
     if(y > 8)
@@ -126,7 +126,7 @@ void Human::move()
       y = 8;
     }
   }
-  if(b = 'R')
+  if(b == 'R')
   {
     x = x+1;
     if(x > 8)
@@ -134,7 +134,7 @@ void Human::move()
       x = 8;
     }
   }
-  if(b = 'L')
+  if(b == 'L')
   {
     x = x-1;
     if(x <= 0)
@@ -142,4 +142,19 @@ void Human::move()
       x = 1;
     }
   }
+}
+void Human::setType(char a)
+{
+    if(a == 'Z' || a == 'F' || a == 'E' || a == 'H')
+    {
+        type = a;
+    }
+}
+bool Human::isValidMove(char a)
+{
+    if(a == 'H')
+    {
+        return false;
+    }
+    return true;
 }

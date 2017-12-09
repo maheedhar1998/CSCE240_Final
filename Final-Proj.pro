@@ -32,7 +32,8 @@ HEADERS += \
         mainwindow.h \
     Human.h \
     Weapon.h \
-    Zombie.h
+    Zombie.h \
+    World.h
 
 FORMS += \
         mainwindow.ui

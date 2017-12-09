@@ -1,0 +1,12 @@
+Weapon Class:
+	//Member variables
+	name : string -- name of the weapon
+	damage : int -- the amount of damage caused by using the weapon
+	//Functions and COnstructors
+	Weapon(string) -- Constuctor -- sets the weapon name to the string and damage to a random number
+					between 0 and 50
+	Weapon(string, int) -- Constructor -- set the name to the string and damage to the int
+	Weapon(Weapon&) -- Constuctor -- copies the data from the weapon object passed in to the new one
+	getters and setters for name and damage
+	name of the weapon can be anything
+	damage is between 0 and 50 

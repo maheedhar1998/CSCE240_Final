@@ -8,11 +8,12 @@ class Human
         Human();
         Human(int,int);
         Human(Human&);
-	       ~Human();
+	    ~Human();
         int getX();
         int getY();
         int getHealth();
         Weapon getWeapon();
+        char getType();
         void setX(int);
         void setY(int);
         void setHealth(int);
@@ -20,8 +21,9 @@ class Human
         void decreaseHealth(int);
         void setWeapon();
         void setWeapon(string,int);
+        void setType(char);
         void move();
-
+        bool isValidMove(char);
 
 
 
@@ -30,8 +32,8 @@ class Human
         int x;
         int y;
         int health;
-	      string weaponArr[14] = {"Machine Gun","Baseball Bat","Machete","Katana","Axe","Zanpakto","Trench Knife","Crowbar","Crossbow","Bow & Arrow","Mace","Grenades","Shot Gun","Assault Rifle"};
+        char type;
+	    string weaponArr[14] = {"Machine Gun","Baseball Bat","Machete","Katana","Axe","Zanpakto","Trench Knife","Crowbar","Crossbow","Bow & Arrow","Mace","Grenades","Shot Gun","Assault Rifle"};
         Weapon weapon;
-
         char moveArr[4] = {'U','D','R','L'};
 };

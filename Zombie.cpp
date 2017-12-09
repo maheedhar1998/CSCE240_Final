@@ -1,35 +1,63 @@
 #include <iostream>
 #include <cstdlib>
+#include <string>
+#include "Zombie.h"
 using namespace std;
-Zombie::Zombie()
+Zombie::Zombie() : Human(int a, int b)
 {
+    setType('Z');
+    setWeapon("Attack", getDamage());
+    imm = 0;
+    mut = 0;
+    ver2 = false;
     immunization = ((rand()%100)+1)/100;
     mutation = ((rand()%100)+1)/100;
 }
 Zombie::Zombie(double a, double b) : Human(Human& c)
 {
+    setType('Z');
+    setWeapon("Attack", getDamage());
+    imm = 0;
+    mut = 0;
+    ver2 = false;
     immunization = a;
     mutation = b;
 }
 Zombie::Zombie(Zombie& a)
 {
-    x = a.x;
-    y = a.y;
-    health = a.health;
-    weapon = a.weapon;
+    setX(a.getX());
+    setY(a.getY());
+    setType(a.getType());
+    setHealth(a.getHealth());
+    setWeapon(a.getWeapon().getName(), a.getWeapon().getDamage());
     immunization = a.immunization;
     mutation = a.mutation;
+    imm = a.imm;
+    mut = a.mut;
+    ver2 = a.ver2;
 }
 Zombie::~Zombie(){}
-double getImmunization()
+double Zombie::getImmunization()
 {
     return immunization;
 }
-double getMutation()
+double Zombie::getMutation()
 {
     return mutation;
 }
-void setImmunization(double a)
+double Zombie::getImm()
+{
+    return imm;
+}
+double Zombie::getMut()
+{
+    return mut;
+}
+bool Zombie::getVer2()
+{
+    return ver2;
+}
+void Zombie::setImmunization(double a)
 {
     if(a>.5)
     {
@@ -44,7 +72,7 @@ void setImmunization(double a)
         immunization = a;
     }
 }
-void setMutation(double a)
+void Zombie::setMutation(double a)
 {
     if(a>.5)
     {
@@ -58,4 +86,28 @@ void setMutation(double a)
     {
         mutation = a;
     }
+}
+void Zombie::setImm(double a)
+{
+    imm = a;
+}
+void Zombie::setMut(double a)
+{
+    mut = a;
+    if(mut >= 10)
+    {
+        ver2 = true;
+    }
+}
+void Zombie::setVer2(bool a)
+{
+    ver2 = a;
+}
+bool Zombie::isValidMove(char a)
+{
+    if(a == 'Z')
+    {
+        return false;
+    }
+    return true;
 }

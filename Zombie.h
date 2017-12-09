@@ -10,9 +10,19 @@ class Zombie: public Human
         ~Zombie();
         double getImmunization();
         double getMutation();
+        double getImm();
+        double getMut();
+        bool getVer2();
         void setImmunization(double);
         void setMutation(double);
+        void setImm(double);
+        void setMut(double);
+        void setVer2(bool);
+        bool isValidMove(char);
     private:
         double immunization;
         double mutation;
+        double imm;
+        double mut;
+        bool ver2;
 };
