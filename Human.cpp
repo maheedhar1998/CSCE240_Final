@@ -97,49 +97,49 @@ void Human::decreaseHealth(int c)
 	{
 		health = 0;
 	}
-  void Human::setWeapon()
-  {
-    String a = weaponArr[rand()%14];
-  	weapon = new Weapon(a);
-  }
-  void Human::setWeapon(string x, int y)
-  {
+}
+void Human::setWeapon()
+{
+  String a = weaponArr[rand()%14];
+  weapon = new Weapon(a);
+}
+void Human::setWeapon(string x, int y)
+{
     weapon = new Weapon(x,y);
-  }
-  void Human::move()
+}
+void Human::move()
+{
+  char b = moveArr[rand()%4];
+  if(b = 'U')
   {
-    char b = moveArr[rand()%4];
-    if(b = 'U')
+    y = y-1;
+    if(y <= 0)
     {
-      y = y-1;
-      if(y <= 0)
-      {
-        y = 1;
-      }
+      y = 1;
     }
-    if(b = 'D')
+  }
+  if(b = 'D')
+  {
+    y = y+1;
+    if(y > 8)
     {
-      y = y+1;
-      if(y > 8)
-      {
-        y = 8;
-      }
+      y = 8;
     }
-    if(b = 'R')
+  }
+  if(b = 'R')
+  {
+    x = x+1;
+    if(x > 8)
     {
-      x = x+1;
-      if(x > 8)
-      {
-        x = 8;
-      }
+      x = 8;
     }
-    if(b = 'L')
+  }
+  if(b = 'L')
+  {
+    x = x-1;
+    if(x <= 0)
     {
-      x = x-1;
-      if(x <= 0)
-      {
-        x = 1;
-      }
+      x = 1;
     }
   }
 }
