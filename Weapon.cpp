@@ -3,6 +3,12 @@
 #include <string>
 #include "Weapon.h"
 using namespace std;
+//Added this default constructor
+Weapon::Weapon()
+{
+	name = "None";
+	damage = 0;
+}
 Weapon::Weapon(string x)
 {
     name = x;
