@@ -6,7 +6,7 @@ class Weapon
 {
     public:
         //Added this default constructor
-	      Weapon();
+	Weapon();
         Weapon(string);
         Weapon(string,int);
         Weapon(Weapon&);
