@@ -6,8 +6,8 @@ using namespace std;
 //Added this default constructor
 Weapon::Weapon()
 {
-	name = "None";
-	damage = 0;
+    name = "None";
+    damage = 0;
 }
 Weapon::Weapon(string x)
 {
