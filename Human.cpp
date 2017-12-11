@@ -45,7 +45,7 @@ Weapon Human::getWeapon()
 {
 	return weapon;
 }
-char getType()
+char Human::getType()
 {
     return type;
 }
@@ -100,12 +100,14 @@ void Human::decreaseHealth(int c)
 }
 void Human::setWeapon()
 {
-  String a = weaponArr[rand()%14];
+  string a = weaponArr[rand()%14];
   Weapon weapon(a);
 }
 void Human::setWeapon(string a, int b)
 {
-    weapon = new Weapon(a,b);
+	//When you uploaded, this part changed back
+    Weapon weapon(a,b);
+    //weapon = new Weapon(a,b);
 }
 void Human::move()
 {
