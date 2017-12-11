@@ -9,7 +9,7 @@ World::World()
     for(int i=0; i<16; i++)
     {
         humans.push_back(Human());
-        zombies.push_back(Zombie());
+        zombies.push_back(Zombie(0,0));
     }
     int humansI = 0;
     int zombiesI = 0;
@@ -30,17 +30,17 @@ World::World()
             }
             else if(choice=='Z' && zombiesI<zombieL)
             {
-                zombies.at(zombiesI) = Zombie():Human(i+1,j+1);
+                zombies.at(zombiesI) = Zombie(i+1,j+1);
                 grid [i][j] = zombies.at(zombiesI);
                 zombiesI++;
             }
             else if(choice=='F')
             {
-                grid [i][j] = freeSpace(false):Human(i+1,j+1);
+                grid [i][j] = freeSpace(false,i+1,j+1);
             }
             else if(choice=='E')
             {
-                grid [i][j] = freeSpace(true):Human(i+1,j+1);
+                grid [i][j] = freeSpace(true,i+1,j+1);
             }
         }
     }
@@ -103,14 +103,14 @@ void World::updateGrid()
                         if(a.getHealth()<=0)
                         {
                             grid[curr.getX()-1][curr.getY()-1] = curr;
-                            grid[i][j] = new freeSpace(true):Human(i+1,j+1);
+                            grid[i][j] = new freeSpace(true,i+1,j+1);
                         }
                         else
                         {
                             curr.decreaseHealth(a.getWeapon().getDamage());
                             if(curr.getHealth()<=0)
                             {
-                                grid[i][j] = new Zombie():Human(i+1,j+1);
+                                grid[i][j] = new Zombie(i+1,j+1);
                             }
                             else
                             {
@@ -124,12 +124,12 @@ void World::updateGrid()
                     {
                         curr.increaseHealth(a.getHealth());
                         grid[curr.getX()-1][curr.getY()-1] = curr;
-                        grid[i][j] = new freeSpace(true):Human(i+1,j+1);
+                        grid[i][j] = new freeSpace(true,i+1,j+1);
                     }
                     else if(a.getType()=='E')
                     {
                         grid[curr.getX()-1][curr.getY()-1] = curr;
-                        grid[i][j] = new freeSpace(true):Human(i+1,j+1);
+                        grid[i][j] = new freeSpace(true,i+1,j+1);
                     }
                 }
                 else if(!b)
@@ -150,7 +150,7 @@ void World::updateGrid()
                         a.decreaseHealth(curr.getWeapon().getDamage());
                         if(a.getHealth()<=0)
                         {
-                            grid[curr.getX()-1][curr.getY()-1] = new Zombie():Human(i+1,j+1);
+                            grid[curr.getX()-1][curr.getY()-1] = new Zombie(i+1,j+1);
                             curr.setX(i+1);
                             curr.setY(j+1);
                             grid[i][j] = curr;
@@ -160,7 +160,7 @@ void World::updateGrid()
                             curr.decreaseHealth(a.getWeapon().getDamage());
                             if(curr.getHealth()<=0)
                             {
-                                grid[i][j] = new freeSpace(true):Human(i+1,j+1);
+                                grid[i][j] = new freeSpace(true,i+1,j+1);
                             }
                             else
                             {
@@ -173,7 +173,7 @@ void World::updateGrid()
                     else if(a.getType()=='E' || a.getType()=='F')
                     {
                         grid[curr.getX()-1][curr.getY()-1] = curr;
-                        grid[i][j] = new freeSpace(true):Human(i+1,j+1);
+                        grid[i][j] = new freeSpace(true,i+1,j+1);
                     }
                 }
                 else if(!b)

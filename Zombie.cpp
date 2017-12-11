@@ -3,7 +3,7 @@
 #include <string>
 #include "Zombie.h"
 using namespace std;
-Zombie::Zombie() : Human(int a, int b)
+Zombie::Zombie(int a, int b) : Human(a, b)
 {
     setType('Z');
     setWeapon("Attack", getDamage());
@@ -13,7 +13,7 @@ Zombie::Zombie() : Human(int a, int b)
     immunization = ((rand()%100)+1)/100;
     mutation = ((rand()%100)+1)/100;
 }
-Zombie::Zombie(double a, double b) : Human(Human& c)
+Zombie::Zombie(double a, double b, Human& c) : Human(c)
 {
     setType('Z');
     setWeapon("Attack", getDamage());

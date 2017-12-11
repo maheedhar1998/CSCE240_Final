@@ -6,7 +6,7 @@ using namespace std;
 Weapon::Weapon()
 {
     name = "none";
-    damage = 0
+    damage = 0;
 }
 Weapon::Weapon(string x)
 {

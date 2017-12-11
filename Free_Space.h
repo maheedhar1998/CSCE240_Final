@@ -5,7 +5,7 @@ using namespace std;
 class freeSpace : public Human
 {
     public:
-        freeSpace(bool x) : Human(int a, int b)
+        freeSpace(bool x, int a, int b) : Human(a, b)
         {
             if(x)
             {

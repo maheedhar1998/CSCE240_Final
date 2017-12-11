@@ -45,8 +45,7 @@ Weapon Human::getWeapon()
 {
 	return weapon;
 }
-//Added the Human:: part...initially it was char getTYpe()
-char Human::getType()
+char getType()
 {
     return type;
 }
@@ -99,17 +98,14 @@ void Human::decreaseHealth(int c)
 		health = 0;
 	}
 }
-//Lowercased the "s" in "string"
 void Human::setWeapon()
 {
-  string a = weaponArr[rand()%14];
+  String a = weaponArr[rand()%14];
   Weapon weapon(a);
 }
-//CHanged from the commented part
 void Human::setWeapon(string a, int b)
 {
-      Weapon weapon(a,b);
-    //weapon = new Weapon(a,b);
+    weapon = new Weapon(a,b);
 }
 void Human::move()
 {
