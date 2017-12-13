@@ -70,7 +70,7 @@ void World::setHumans(vector<Human> h)
 {
     humans = h;
 }
-void World::setZombies(vecctor<Zombie> z)
+void World::setZombies(vector<Zombie> z)
 {
     zombies = z;
 }
