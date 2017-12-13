@@ -3,6 +3,15 @@
 #include <string>
 #include "Zombie.h"
 using namespace std;
+Zombie::Zombie() : Human()
+{
+    setType('Z');
+    imm = 0;
+    mut = 0;
+    ver2 = false;
+    immunization = 0;
+    mutation = 0;
+}
 Zombie::Zombie(int a, int b) : Human(a, b)
 {
     setType('Z');
@@ -110,4 +119,9 @@ bool Zombie::isValidMove(char a)
         return false;
     }
     return true;
+}
+Zombie& Zombie::operator=(Zombie* rhs)
+{
+    Zombie retVal(*rhs);
+    return retVal;
 }

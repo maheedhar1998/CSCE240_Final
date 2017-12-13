@@ -4,8 +4,9 @@ using namespace std;
 class Zombie: public Human
 {
     public:
+        Zombie();
         Zombie(int,int); //: Human(a,b);
-        Zombie(double,double,Human&);// : Human(Human&);
+        Zombie(double,double,Human&);//: Human(Human&);
         Zombie(Zombie&);
         ~Zombie();
         double getImmunization();
@@ -19,6 +20,7 @@ class Zombie: public Human
         void setMut(double);
         void setVer2(bool);
         bool isValidMove(char);
+        Zombie& operator=(Zombie*);
     private:
         double immunization;
         double mutation;

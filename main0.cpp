@@ -5,7 +5,7 @@
 using namespace std;
 int main()
 {
-    World universe = new World();
+    World universe;
     for(int i=0; i<50; i++)
     {
         char ans;

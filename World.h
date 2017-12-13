@@ -12,19 +12,19 @@ class World
         World();
         ~World();
         int getDay();
-        vector<Human> getHumans();
-        vector<Zombie> getZombies();
-        Human[][] getGrid();
+        Human* getHumans();
+        Zombie* getZombies();
+        //Human* getGrid();
         void setDay(int);
-        void setHumans(vector<Human>);
-        void setZombies(vector<Zombie>);
-        void setGrid(Human[][]);
+        void setHumans(Human[16]);
+        void setZombies(Zombie[16]);
+        void setGrid(Human[8][8]);
         void updateGrid();
         void printLn();
         void printGrid();
     private:
         int day;
-        std::vector<Human> humans;
-        std::vector<Zombie> zombies;
+        Human humans[16];
+        Zombie zombies[16];
         Human grid[8][8];
 };

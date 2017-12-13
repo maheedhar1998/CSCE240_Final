@@ -24,7 +24,7 @@ class Human
         void setType(char);
         void move();
         bool isValidMove(char);
-
+        Human& operator=(Human*);
 
 
 

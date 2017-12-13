@@ -4,15 +4,16 @@
 using namespace std;
 Human::Human()
 {
- 	x = 0;
- 	y = 0;
+ 	x = 1;
+ 	y = 1;
 	health = 100;
     type = 'H';
 	Weapon weapon("none",0);
 }
 Human::Human(int xVal, int yVal)
 {
-	setX(xVal);
+    //cout << xVal << " " << yVal << endl;
+    setX(xVal);
 	setY(yVal);
     type = 'H';
 	setHealth((rand()%100)+1);
@@ -24,7 +25,7 @@ Human::Human(Human& human)
     y = human.y;
     type = 'H';
     health = human.health;
-    weapon =  human.weapon;
+    Weapon weapon(human.weapon);
 }
 Human::~Human()
 {
@@ -51,7 +52,7 @@ char Human::getType()
 }
 void Human::setX(int _x)
 {
-	if(x <= 0 || x > 8)
+    if(_x <= 0 || _x > 8)
 	{
 		cout << "Index out of bounds" << endl;
 	}
@@ -62,7 +63,7 @@ void Human::setX(int _x)
 }
 void Human::setY(int _y)
 {
-	if(y <= 0 || y > 8)
+    if(_y <= 0 || _y > 8)
 	{
 		cout << "Index out of bounds" << endl;
 	}
@@ -73,7 +74,7 @@ void Human::setY(int _y)
 }
 void Human::setHealth(int a)
 {
-	if(x <= 0 || x > 100)
+	if(x < 0 || x > 100)
 	{
 		cout << "Invalid Health!" << endl;
 	}
@@ -105,9 +106,7 @@ void Human::setWeapon()
 }
 void Human::setWeapon(string a, int b)
 {
-	//When you uploaded, this part changed back
     Weapon weapon(a,b);
-    //weapon = new Weapon(a,b);
 }
 void Human::move()
 {
@@ -159,4 +158,9 @@ bool Human::isValidMove(char a)
         return false;
     }
     return true;
+}
+Human& Human::operator=(Human* rhs)
+{
+    Human retVal(*rhs);
+    return retVal;
 }
