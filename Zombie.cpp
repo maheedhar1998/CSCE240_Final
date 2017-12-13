@@ -6,7 +6,7 @@ using namespace std;
 Zombie::Zombie(int a, int b) : Human(a, b)
 {
     setType('Z');
-    setWeapon("Attack", getDamage());
+    setWeapon("Attack", getWeapon().getDamage());
     imm = 0;
     mut = 0;
     ver2 = false;
@@ -16,7 +16,7 @@ Zombie::Zombie(int a, int b) : Human(a, b)
 Zombie::Zombie(double a, double b, Human& c) : Human(c)
 {
     setType('Z');
-    setWeapon("Attack", getDamage());
+    setWeapon("Attack", c.getWeapon().getDamage());
     imm = 0;
     mut = 0;
     ver2 = false;

@@ -84,8 +84,8 @@ void World::updateGrid()
     {
         for(int j=0; j<8; j++)
         {
-            curr = grid[i][j];
-            typ = curr.getType();
+            Human curr = grid[i][j];
+            char typ = curr.getType();
             if(typ == 'F' || typ == 'E')
             {
                 continue;

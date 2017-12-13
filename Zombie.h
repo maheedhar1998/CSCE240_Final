@@ -4,8 +4,8 @@ using namespace std;
 class Zombie: public Human
 {
     public:
-        Zombie(int,int) : Human(int,int);
-        Zombie(double,double,Human&) : Human(Human&);
+        Zombie(int,int); //: Human(a,b);
+        Zombie(double,double,Human&);// : Human(Human&);
         Zombie(Zombie&);
         ~Zombie();
         double getImmunization();
