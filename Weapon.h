@@ -1,3 +1,5 @@
+#ifndef WEAPON_H
+#define WEAPON_H
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -13,8 +15,9 @@ class Weapon
         int getDamage();
         void setName(string);
         void setDamage(int);
-        void print();
+        string toString();
     private:
         string name;
         int damage;
 };
+#endif

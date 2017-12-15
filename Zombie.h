@@ -1,5 +1,9 @@
+#ifndef ZOMBIE_H
+#define ZOMBIE_H
 #include <iostream>
 #include <cstdlib>
+#include <sstream>
+#include <string>
 using namespace std;
 class Zombie: public Human
 {
@@ -21,6 +25,7 @@ class Zombie: public Human
         void setVer2(bool);
         bool isValidMove(char);
         Zombie& operator=(Zombie*);
+        string toString();
     private:
         double immunization;
         double mutation;
@@ -28,3 +33,4 @@ class Zombie: public Human
         double mut;
         bool ver2;
 };
+#endif

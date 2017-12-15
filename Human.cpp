@@ -1,5 +1,9 @@
+#ifndef HUMAN_CPP
+#define HUMAN_CPP
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
+#include <string>
 #include "Human.h"
 using namespace std;
 Human::Human()
@@ -8,6 +12,7 @@ Human::Human()
  	y = 1;
 	health = 100;
     setType('H');
+    moved = false;
 	Weapon weapon("none",0);
 }
 Human::Human(int xVal, int yVal)
@@ -16,15 +21,7 @@ Human::Human(int xVal, int yVal)
     setX(xVal);
 	setY(yVal);
     setType('H');
-    setHealth((rand()%100)+1);
-    setWeapon();
-}
-Human::Human(int xVal, int yVal, char typ)
-{
-    //cout << xVal << " " << yVal << endl;
-    setX(xVal);
-	setY(yVal);
-    setType(typ);
+    moved = false;
     setHealth((rand()%100)+1);
     setWeapon();
 }
@@ -33,6 +30,7 @@ Human::Human(Human& human)
     x = human.x;
     y = human.y;
     setType('H');
+    moved = false;
     health = human.health;
     Weapon weapon(human.weapon);
 }
@@ -59,9 +57,13 @@ char Human::getType()
 {
     return type;
 }
+bool Human::getMoved()
+{
+    return moved;
+}
 void Human::setX(int _x)
 {
-    if(_x <= 0 || _x > 8)
+    if(_x < 0 || _x > 8)
 	{
 		cout << "Index out of bounds" << endl;
 	}
@@ -83,7 +85,7 @@ void Human::setY(int _y)
 }
 void Human::setHealth(int a)
 {
-	if(x < 0 || x > 100)
+	if(x <= 0 || x > 100)
 	{
 		cout << "Invalid Health!" << endl;
 	}
@@ -116,6 +118,10 @@ void Human::setWeapon()
 void Human::setWeapon(string a, int b)
 {
     Weapon weapon(a,b);
+}
+void Human::setMoved(bool a)
+{
+    moved = a;
 }
 void Human::move()
 {
@@ -171,6 +177,21 @@ bool Human::isValidMove(char a)
 }
 Human& Human::operator=(Human* rhs)
 {
-    Human retVal(*rhs);
-    return retVal;
+    x = rhs->x;
+    y = rhs->y;
+    health = rhs->health;
+    type = rhs->type;
+    moved = rhs->moved;
+    setWeapon(rhs->getWeapon().getName(), rhs->getWeapon().getDamage());
+    return *this;
 }
+string Human::toString()
+{
+    ostringstream ss;
+    ss << getX() << " " << getY();
+    string coord = ss.str();
+    ostringstream ss1;
+    ss1 << getHealth();
+    return "Human\nCoordinates: "+coord+"\nHealth: "+ss.str()+"Weapon\n"+weapon.toString();
+}
+#endif

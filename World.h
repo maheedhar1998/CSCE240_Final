@@ -1,3 +1,5 @@
+#ifndef WORLD_H
+#define WORLD_H
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -12,19 +14,14 @@ class World
         World();
         ~World();
         int getDay();
-        Human* getHumans();
-        Zombie* getZombies();
-        //Human* getGrid();
+        Human** getGrid();
         void setDay(int);
-        void setHumans(Human[16]);
-        void setZombies(Zombie[16]);
-        void setGrid(Human[8][8]);
+        void setGrid(Human**);
         void updateGrid();
         void printLn();
         void printGrid();
     private:
         int day;
-        Human humans[16];
-        Zombie zombies[16];
-        Human grid[8][8];
+        Human** grid;
 };
+#endif

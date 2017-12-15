@@ -1,3 +1,5 @@
+#ifndef WORLD_CPP
+#define WORLD_CPP
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -6,17 +8,18 @@
 using namespace std;
 World::World()
 {
+    srand(time(0));
     day = 0;
-    for(int i=0; i<16; i++)
-    {
-        Human humans[i] = *(new Human());
-        Zombie zombies[i] = *(new Zombie());
-    }
     int humansI = 0;
     int zombiesI = 0;
     int humanL = 16;
     int zombieL = 16;
     int h(0),z(0),f(0),e(0);
+    grid = new Human*[8];
+    for(int i=0; i<8; i++)
+    {
+        grid[i] = new Human[8];
+    }
     for(int i=0; i<8; i++)
     {
         for(int j=0; j<8; j++)
@@ -28,71 +31,89 @@ World::World()
             if(choice=='H' && humansI<humanL)
             {
                 // cout << "humans\n";
-                humans[humansI] = new Human(j+1,i+1);
-                grid [i][j] = humans[humansI];
+                Human temp(j+1,i+1);
+                grid [i][j] = temp;//new Human(j+1,i+1);
                 humansI++;
                 h++;
             }
             else if(choice=='Z' && zombiesI<zombieL)
             {
                 // cout << "zombies\n";
-                zombies[zombiesI] = new Zombie(j+1,i+1);
-                grid [i][j] = zombies[zombiesI];
+                Zombie temp(j+1,i+1);
+                grid [i][j] = temp;
                 zombiesI++;
                 z++;
+            }
+            else if(choice=='H' && humansI>=humanL)
+            {
+                freeSpace temp(false,j+1,i+1);
+                grid[i][j] = temp;
+                f++;
+            }
+            else if(choice=='Z' && zombiesI>=zombieL)
+            {
+                freeSpace temp(true,j+1,i+1);
+                grid[i][j] = temp;
+                e++;
             }
             else if(choice=='F')
             {
                 // cout << "food\n";
-                grid[i][j] = new freeSpace(false,j+1,i+1);
+                freeSpace temp(false,j+1,i+1);
+                grid[i][j] = temp;
                 f++;
             }
             else if(choice=='E')
             {
                 // cout << "empty\n";
-                grid[i][j] = new freeSpace(true,j+1,i+1);
+                freeSpace temp(true,j+1,i+1);
+                grid[i][j] = temp;
                 e++;
             }
         }
     }
-    cout << "H: " << h << "\nZ: " << z << "\nF: " << f << "\nE: " << e << endl;
+    //cout << "H: " << h << "\nZ: " << z << "\nF: " << f << "\nE: " << e << endl;
 }
-World::~World(){}
+World::~World()
+{
+    delete [] *grid;
+    delete [] grid;
+}
 int World::getDay()
 {
     return day;
 }
-Human* World::getHumans()
-{
-    return humans;
-}
-Zombie* World::getZombies()
-{
-    return zombies;
-}
-/*Human* World::getGrid()
+// Human* World::getHumans()
+// {
+//     return humans;
+// }
+// Zombie* World::getZombies()
+// {
+//     return zombies;
+// }
+Human** World::getGrid()
 {
     return grid;
-}*/
+}
 void World::setDay(int x)
 {
     day = x;
 }
-void World::setHumans(Human h[16])
-{
-    for(int i=0; i<16; i++)
-    {
-        humans[i] = h[i];
-    }
-}
-void World::setZombies(Zombie z[16])
-{
-    for(int i=0; i<16; i++)
-    {
-        zombies[i] = z[i];
-    }
-}
-void World::setGrid(Human grd[8][8])
+// void World::setHumans(Human h[16])
+// {
+//     for(int i=0; i<16; i++)
+//     {
+//         humans[i] = h[i];
+//     }
+// }
+// void World::setZombies(Zombie z[16])
+// {
+//     for(int i=0; i<16; i++)
+//     {
+//         zombies[i] = z[i];
+//     }
+// }
+void World::setGrid(Human** grd)
 {
     for(int i=0; i<8; i++)
     {
@@ -108,104 +129,142 @@ void World::updateGrid()
     {
         for(int j=0; j<8; j++)
         {
-            Human curr = grid[i][j];
-            char typ = curr.getType();
+            grid[i][j].setMoved(false);
+        }
+    }
+    for(int i=0; i<8; i++)
+    {
+        for(int j=0; j<8; j++)
+        {
+            Human curr;
+            char typ;
             Human a;
             bool b;
+            curr = grid[i][j];
+            typ = curr.getType();
+            //cout << typ << endl;
             if(typ == 'F' || typ == 'E')
             {
                 continue;
             }
             else if(typ == 'H')
             {
-                curr.move();
-                a = grid[curr.getX()-1][curr.getY()-1];
-                b = curr.isValidMove(a.getType());
-                if(b)
+                if(curr.getMoved() == false)
                 {
-                    if(a.getType()=='Z')
+                    curr.move();
+                    a = grid[curr.getX()-1][curr.getY()-1];
+                    b = curr.isValidMove(a.getType());
+                    if(b)
                     {
-                        a.decreaseHealth(curr.getWeapon().getDamage());
-                        if(a.getHealth()<=0)
+                        if(a.getType()=='Z')
                         {
-                            grid[curr.getX()-1][curr.getY()-1] = curr;
-                            grid[i][j] = new freeSpace(true,j+1,i+1);
-                        }
-                        else
-                        {
-                            curr.decreaseHealth(a.getWeapon().getDamage());
-                            if(curr.getHealth()<=0)
+                            cout << "Battle Adv: Human\n";
+                            a.decreaseHealth(curr.getWeapon().getDamage());
+                            if(a.getHealth()<=0)
                             {
-                                grid[i][j] = new Zombie(j+1,i+1);
+                                cout << "Zombie died\n";
+                                grid[curr.getX()-1][curr.getY()-1] = curr;
+                                grid[curr.getX()-1][curr.getY()-1].setMoved(true);
+                                freeSpace temp(true,j+1,i+1);
+                                grid[i][j] = temp;
                             }
                             else
                             {
-                                curr.setX(j+1);
-                                curr.setY(i+1);
-                                grid[i][j] = curr;
+                                curr.decreaseHealth(a.getWeapon().getDamage());
+                                if(curr.getHealth()<=0)
+                                {
+                                    cout << "Human died\n";
+                                    Zombie temp(j+1,i+1);
+                                    grid[i][j] = temp;
+                                }
+                                else
+                                {
+                                    cout << "Tie\n";
+                                    curr.setX(j+1);
+                                    curr.setY(i+1);
+                                    grid[i][j] = curr;
+                                }
                             }
                         }
+                        else if(a.getType()=='F')
+                        {
+                            cout << "Human Health++\n";
+                            curr.increaseHealth(a.getHealth());
+                            grid[curr.getX()-1][curr.getY()-1] = curr;
+                            grid[curr.getX()-1][curr.getY()-1].setMoved(true);
+                            freeSpace temp(true,j+1,i+1);
+                            grid[i][j] = temp;
+                        }
+                        else if(a.getType()=='E')
+                        {
+                            grid[curr.getX()-1][curr.getY()-1] = curr;
+                            grid[curr.getX()-1][curr.getY()-1].setMoved(true);
+                            freeSpace temp(true,j+1,i+1);
+                            grid[i][j] = temp;
+                        }
                     }
-                    else if(a.getType()=='F')
+                    else if(!b)
                     {
-                        curr.increaseHealth(a.getHealth());
-                        grid[curr.getX()-1][curr.getY()-1] = curr;
-                        grid[i][j] = new freeSpace(true,j+1,i+1);
+                        grid[i][j].setX(j+1);
+                        grid[i][j].setY(i+1);
                     }
-                    else if(a.getType()=='E')
-                    {
-                        grid[curr.getX()-1][curr.getY()-1] = curr;
-                        grid[i][j] = new freeSpace(true,j+1,i+1);
-                    }
-                }
-                else if(!b)
-                {
-                    grid[i][j].setX(j+1);
-                    grid[i][j].setY(i+1);
                 }
             }
             else if(typ == 'Z')
             {
-                curr.move();
-                a = grid[curr.getX()-1][curr.getY()-1];
-                b = curr.isValidMove(a.getType());
-                if(b)
+                //cout << "innn\n";
+                if(curr.getMoved() == false)
                 {
-                    if(a.getType()=='H')
+                    //cout << "in\n";
+                    curr.move();
+                    a = grid[curr.getX()-1][curr.getY()-1];
+                    b = curr.isValidMove(a.getType());
+                    //cout << b << endl;
+                    if(b)
                     {
-                        a.decreaseHealth(curr.getWeapon().getDamage());
-                        if(a.getHealth()<=0)
+                        if(a.getType()=='H')
                         {
-                            grid[curr.getX()-1][curr.getY()-1] = new Zombie(j+1,i+1);
-                            curr.setX(j+1);
-                            curr.setY(i+1);
-                            grid[i][j] = curr;
-                        }
-                        else
-                        {
-                            curr.decreaseHealth(a.getWeapon().getDamage());
-                            if(curr.getHealth()<=0)
+                            cout << "Battle Adv: Zombie\n";
+                            a.decreaseHealth(curr.getWeapon().getDamage());
+                            if(a.getHealth()<=0)
                             {
-                                grid[i][j] = new freeSpace(true,j+1,i+1);
-                            }
-                            else
-                            {
+                                cout << "Human dieeed\n";
+                                Zombie temp(j+1,i+1);
+                                grid[curr.getX()-1][curr.getY()-1] = temp;
                                 curr.setX(j+1);
                                 curr.setY(i+1);
                                 grid[i][j] = curr;
                             }
+                            else
+                            {
+                                curr.decreaseHealth(a.getWeapon().getDamage());
+                                if(curr.getHealth()<=0)
+                                {
+                                    cout << "Zombie dieeed\n";
+                                    freeSpace temp(true,j+1,i+1);
+                                    grid[i][j] = temp;
+                                }
+                                else
+                                {
+                                    curr.setX(j+1);
+                                    curr.setY(i+1);
+                                    grid[i][j] = curr;
+                                }
+                            }
+                        }
+                        else if(a.getType()=='E' || a.getType()=='F')
+                        {
+                            grid[curr.getX()-1][curr.getY()-1] = curr;
+                            grid[curr.getX()-1][curr.getY()-1].setMoved(true);
+                            freeSpace temp(true,j+1,i+1);
+                            grid[i][j] = temp;
                         }
                     }
-                    else if(a.getType()=='E' || a.getType()=='F')
+                    else if(!b)
                     {
-                        grid[curr.getX()-1][curr.getY()-1] = curr;
-                        grid[i][j] = new freeSpace(true,j+1,i+1);
+                        grid[i][j].setX(j);
+                        grid[i][j].setY(i);
                     }
-                }
-                else if(!b)
-                {
-                    grid[i][j].setX(j);
-                    grid[i][j].setY(i);
                 }
             }
         }
@@ -240,3 +299,4 @@ void World::printGrid()
         printLn();
     }
 }
+#endif

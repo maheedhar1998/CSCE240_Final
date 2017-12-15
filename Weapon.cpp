@@ -1,6 +1,9 @@
+#ifndef WEAPON_CPP
+#define WEAPON_CPP
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <sstream>
 #include "Weapon.h"
 using namespace std;
 Weapon::Weapon()
@@ -50,7 +53,10 @@ void Weapon::setDamage(int x)
         damage = 1;
     }
 }
-void Weapon::print()
+string Weapon::toString()
 {
-    cout << "Name: " << name << "\nDamage: " << damage << endl;
+    ostringstream ss;
+    ss << damage;
+    return "Name: "+name+"\nDamage: "+ss.str()+"\n";
 }
+#endif

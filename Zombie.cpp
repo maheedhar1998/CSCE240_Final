@@ -1,6 +1,9 @@
+#ifndef ZOMBIE_CPP
+#define ZOMBIE_CPP
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <sstream>
 #include "Zombie.h"
 using namespace std;
 Zombie::Zombie() : Human()
@@ -122,6 +125,32 @@ bool Zombie::isValidMove(char a)
 }
 Zombie& Zombie::operator=(Zombie* rhs)
 {
-    Zombie retVal(*rhs);
-    return retVal;
+    setX(rhs->getX());
+    setY(rhs->getY());
+    setHealth(rhs->getHealth());
+    setType(rhs->getType());
+    setMoved(rhs->getMoved());
+    setWeapon(rhs->getWeapon().getName(), rhs->getWeapon().getDamage());
+    immunization = rhs->immunization;
+    imm = rhs->imm;
+    mutation = rhs->mutation;
+    mut = rhs->mut;
+    ver2 = rhs->ver2;
+    return *this;
 }
+string Zombie::toString()
+{
+    ostringstream ss;
+    ss << getX() << " " << getY();
+    string coord = ss.str();
+    ostringstream ss1;
+    ss1 << getHealth();
+    string hlth = ss1.str();
+    ostringstream ss2;
+    ss2 << immunization << "\nImmunity: " << imm << "\nRate of Mutation: " << mutation << "\nMutation: " << mut;
+    string v2 = "no";
+    if(ver2)
+        v2 = "yes";
+    return "Zombie\nCoordinates: "+coord+"\nHealth: "+hlth+"Weapon\n"+getWeapon().toString()+"Rate of Immunization: "+ss2.str()+"\nVersion 2.0: "+v2;
+}
+#endif
