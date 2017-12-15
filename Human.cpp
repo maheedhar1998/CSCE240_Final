@@ -7,7 +7,7 @@ Human::Human()
  	x = 1;
  	y = 1;
 	health = 100;
-    type = 'H';
+    setType('H');
 	Weapon weapon("none",0);
 }
 Human::Human(int xVal, int yVal)
@@ -15,15 +15,24 @@ Human::Human(int xVal, int yVal)
     //cout << xVal << " " << yVal << endl;
     setX(xVal);
 	setY(yVal);
-    type = 'H';
-	setHealth((rand()%100)+1);
+    setType('H');
+    setHealth((rand()%100)+1);
+    setWeapon();
+}
+Human::Human(int xVal, int yVal, char typ)
+{
+    //cout << xVal << " " << yVal << endl;
+    setX(xVal);
+	setY(yVal);
+    setType(typ);
+    setHealth((rand()%100)+1);
     setWeapon();
 }
 Human::Human(Human& human)
 {
     x = human.x;
     y = human.y;
-    type = 'H';
+    setType('H');
     health = human.health;
     Weapon weapon(human.weapon);
 }
@@ -148,6 +157,7 @@ void Human::setType(char a)
 {
     if(a == 'Z' || a == 'F' || a == 'E' || a == 'H')
     {
+        //cout << a << endl;
         type = a;
     }
 }

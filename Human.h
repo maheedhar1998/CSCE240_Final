@@ -7,6 +7,7 @@ class Human
     public:
         Human();
         Human(int,int);
+        Human(int,int,char);
         Human(Human&);
 	    ~Human();
         int getX();
@@ -25,7 +26,6 @@ class Human
         void move();
         bool isValidMove(char);
         Human& operator=(Human*);
-
 
 
     private:

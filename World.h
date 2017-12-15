@@ -4,7 +4,7 @@
 #include <vector>
 #include "Human.cpp"
 #include "Zombie.cpp"
-#include "Free_Space.h"
+#include "Free_Space.cpp"
 using namespace std;
 class World
 {

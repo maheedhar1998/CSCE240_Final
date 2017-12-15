@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <ctime>
 #include "World.h"
 using namespace std;
 World::World()
