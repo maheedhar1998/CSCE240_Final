@@ -26,14 +26,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    Weapon.cpp
+    Weapon.cpp \
+    Free_Space.cpp \
+    Human.cpp \
+    Weapon.cpp \
+    World.cpp \
+    Zombie.cpp \
+    main0.cpp
 
 HEADERS += \
         mainwindow.h \
     Human.h \
     Weapon.h \
     Zombie.h \
-    World.h
+    World.h \
+    Free_Space.h
 
 FORMS += \
         mainwindow.ui
